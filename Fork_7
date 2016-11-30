@@ -1,0 +1,37 @@
+/******************************************************************************
+Alunno: Matteo Mori
+Testo del problema: Legge N in input (N deve essere tra 1 a 5).
+                    Il numero di fork(); deve corrispondere con il numero di N
+                    inserite.
+                    Alla fine, con un "printf" il rispettivo figlio dichiara di
+                    esserlo del rispettivo padre.
+*******************************************************************************/
+#include<stdio.h>
+#include<stdlib.h>
+#include<sys/types.h>
+#include<unistd.h>
+#include<sys/wait.h>
+main(){
+//Dichiarazione processo 
+int n,i;
+//Dichiarazione variabili 
+pid_t pid;
+//Ciclo per l'inserimento di un numero di processi compreso tra 1 e 5 
+do{
+      printf("\n Inserisci un numero compreso tra 1 e 5");
+      scanf("%d",&n);
+}while((n<1)||(n>5));
+//Stampa del processo iniziale 
+printf("padre: PID processo %d\n",getpid());
+for(i=1;i<=n;i++){
+                 //Generazione di un processo figlio 
+                 pid=fork();
+                 if(pid==0){
+                   sleep(1);
+                   printf("Io sono il processo %d, il mio padre è %d\n",getpid(),getppid());
+                 }
+}
+//Uscita dal file 
+exit;
+}
+
